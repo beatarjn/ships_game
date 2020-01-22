@@ -24,9 +24,8 @@ public class GameTest {
     public void testStartGame() {
 
         //given
-        Board board = new Board(4,3,12);
+        Board board = new Board(4, 3, 12);
         Game game = new Game(board, renderer, randomGenerator, io);
-
         String mockRender = "foo";
         when(renderer.renderGameBoard(board)).thenReturn(mockRender);
 
@@ -36,9 +35,6 @@ public class GameTest {
         //then
         verify(renderer, times(1)).renderGameBoard(board);
         verify(io, times(1)).output(mockRender);
-
         verifyNoMoreInteractions(renderer, io);
-
     }
-
 }

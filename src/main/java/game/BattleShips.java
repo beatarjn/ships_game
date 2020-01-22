@@ -7,19 +7,23 @@ public class BattleShips {
     public static int computerShips;
 
     public static void main(String[] args) {
-        I0Device io = new I0Device(new Scanner(System.in));
-        io.outputLine("**** Battle Ships ****");
-        Game game = bootstrapGame(io);
-        game.startGame();
-        do {
-            game.battle();
-        } while (!game.isGameOver());
-        game.gameOver();
+        I0Device io = null;
+        try {
+            io = new I0Device(new Scanner(System.in));
+            io.outputLine("**** Battle Ships ****");
+            Game game = bootstrapGame(io);
+            game.startGame();
+            do {
+                game.battle();
+            } while (!game.isGameOver());
+            game.gameOver();
+        } finally {
+            io.close();
+        }
     }
 
     private static Game bootstrapGame(I0Device input) {
-
-        int numCols = input.askForInt("Enter number of columns for game board: ");;
+        int numCols = input.askForInt("Enter number of columns for game board: ");
         int numRows = input.askForInt("Enter number of rows for game board: ");
         int computerShips = input.askForInt("Enter number of ships: ");
         int maxNumberOfShips = numRows * numCols;

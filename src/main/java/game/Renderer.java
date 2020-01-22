@@ -9,11 +9,11 @@ public class Renderer {
             sb.append(i);
         sb.append("\n");
 
-        String[][] gameBoard = board.getGameBoard();
+        String[][] gameBoard = board.getBoardMatrix();
         for (int x = 0; x < gameBoard.length; x++) {
             sb.append(x + "|");
             for (int y = 0; y < gameBoard[x].length; y++) {
-                if("S".equalsIgnoreCase(gameBoard[x][y])) {
+                if(Ship.SHIP.toString().equalsIgnoreCase(gameBoard[x][y])) {
                     sb.append(" ");
                 } else {
                     sb.append(gameBoard[x][y]);

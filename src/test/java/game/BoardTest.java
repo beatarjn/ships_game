@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 public class BoardTest {
 
     @Test
-    public void testBoardInitialSetup(){
+    public void testBoardInitialSetup() {
 
         //given
         int numOfCols = 4;
@@ -21,10 +21,8 @@ public class BoardTest {
         Assert.assertEquals(4, board.getNumCols());
         Assert.assertEquals(3, board.getNumRows());
         Assert.assertEquals(5, board.getNumberOfShips());
-
-        Assert.assertArrayEquals(board.getGameBoard()[0], new String[]{" ", " ", " ", " "});
-        Assert.assertArrayEquals(board.getGameBoard()[1], new String[]{" ", " ", " ", " "});
-        Assert.assertArrayEquals(board.getGameBoard()[2], new String[]{" ", " ", " ", " "});
+        Assert.assertArrayEquals(board.getBoardMatrix()[0], new String[]{" ", " ", " ", " "});
+        Assert.assertArrayEquals(board.getBoardMatrix()[1], new String[]{" ", " ", " ", " "});
+        Assert.assertArrayEquals(board.getBoardMatrix()[2], new String[]{" ", " ", " ", " "});
     }
-
 }

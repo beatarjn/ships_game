@@ -7,24 +7,22 @@ public class Board {
     private int numCols;
     private int numRows;
     private int numberOfShips;
-    private String[][] gameBoard;
+    private String[][] boardMatrix;
 
     public Board(int numCols, int numRows, int numberOfShips) {
         this.numCols = numCols;
         this.numRows = numRows;
         this.numberOfShips = numberOfShips;
-        gameBoard = new String[numRows][numCols];
+        boardMatrix = new String[numRows][numCols];
         fillBoardWithInitValues();
     }
 
     private void fillBoardWithInitValues() {
-        Arrays.stream(gameBoard).forEach(array -> Arrays.fill(array, " "));
+        Arrays.stream(boardMatrix).forEach(array -> Arrays.fill(array, Ship.EMPTY.toString()));
     }
 
-
-
-    public String[][] getGameBoard() {
-        return gameBoard;
+    public String[][] getBoardMatrix() {
+        return boardMatrix;
     }
 
     public int getNumCols() {

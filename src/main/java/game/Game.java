@@ -14,7 +14,7 @@ public class Game {
     private int successGuesses;
     private int numberOfGuesses;
 
-    public Game(Board board, Renderer renderer, Random randomGenerator, I0Device io){
+    public Game(Board board, Renderer renderer, Random randomGenerator, I0Device io) {
         this.board = board;
         this.renderer = renderer;
         this.randomGenerator = randomGenerator;
@@ -43,40 +43,33 @@ public class Game {
         int x;
         int y;
         do {
-            x = io.askForInt("Enter X coordinate: ");
-            y = io.askForInt("Enter Y coordinate: ");;
+            x = askForXCoordinate();
+            y = askForYCoordinate();
 
             if (checkIfValidGuess(x, y, board)) {
-                if (board.getGameBoard()[x][y] == "S") {
+                if (Ship.SHIP.toString().equalsIgnoreCase(getPoint(x, y))) {
                     io.outputLine("You hit the ship!");
-                    board.getGameBoard()[x][y] = "H";
+                    board.getBoardMatrix()[x][y] = Ship.HIT.toString();
                     board.decrementNumberOfShips();
                     successGuesses++;
-                } else if (board.getGameBoard()[x][y] == " ") {
+                } else if (Ship.EMPTY.toString().equalsIgnoreCase(getPoint(x, y))) {
                     io.outputLine("Sorry, you missed");
-                    board.getGameBoard()[x][y] = "X";
+                    board.getBoardMatrix()[x][y] = Ship.MISSED.toString();
                     missedGuesses++;
                 }
-            } else if (checkIfInvalidGuess(x, y, board)) {
+            } else if (!checkIfValidGuess(x, y, board)) {
                 io.outputLine("You can't place ships outside the " + board.getNumRows() + " by " + board.getNumCols() + " grid");
             }
             numberOfGuesses++;
-        } while (checkIfInvalidGuess(x, y, board));
+        } while (!checkIfValidGuess(x, y, board));
     }
 
     public void gameOver() {
-
         io.outputLine("THE END");
-        io.outputLine("Number of guesses done: " + numberOfGuesses);
-        io.outputLine("Number of missed guesses: " + missedGuesses);
-        io.outputLine("Number of successful guesses: " + successGuesses);
-        double result = (double)successGuesses/ (double)numberOfGuesses;
-        io.outputLine("Success ratio: " + (result * 100) + "%");
-
-    }
-
-    private boolean checkIfInvalidGuess(int x, int y, Board board) {
-        return (x < 0 || x >= board.getNumRows()) || (y < 0 || y >= board.getNumCols());
+        io.outputLine(String.format("%s: %d", "Number of guesses done", numberOfGuesses));
+        io.outputLine(String.format("%s: %d", "Number of missed guesses: ", missedGuesses));
+        io.outputLine(String.format("%s: %d", "Number of successful guesses: ", successGuesses));
+        io.outputLine(String.format("%s: %d %p", "Success ratio: ", getSuccessRate(), "%"));
     }
 
     private boolean checkIfValidGuess(int x, int y, Board board) {
@@ -88,7 +81,7 @@ public class Game {
             int x = randomGenerator.nextInt(10);
             int y = randomGenerator.nextInt(10);
             if ((x >= 0 && x < board.getNumRows()) && (y >= 0 && y < board.getNumCols())) {
-                board.getGameBoard()[x][y] = "S";
+                board.getBoardMatrix()[x][y] = Ship.SHIP.toString();
                 i++;
             }
         }
@@ -96,5 +89,21 @@ public class Game {
 
     public boolean isGameOver() {
         return board.getNumberOfShips() == 0;
+    }
+
+    private String getPoint(int x, int y) {
+        return board.getBoardMatrix()[x][y];
+    }
+
+    private int askForYCoordinate() {
+        return io.askForInt("Enter Y coordinate: ");
+    }
+
+    private int askForXCoordinate() {
+        return io.askForInt("Enter X coordinate: ");
+    }
+
+    private double getSuccessRate() {
+        return ((double) successGuesses / (double) numberOfGuesses) * 100;
     }
 }

@@ -26,4 +26,8 @@ public class I0Device {
     public void outputLine() {
         System.out.println();
     }
+
+    public void close() {
+        input.close();
+    }
 }
