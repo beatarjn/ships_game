@@ -4,12 +4,11 @@ import java.util.Random;
 
 public class Game {
 
+    public static final String PARAMS = "%s: %d";
     private final Board board;
     private final Renderer renderer;
     private final Random randomGenerator;
     private final I0Device io;
-
-    private int computerShips;
     private int missedGuesses;
     private int successGuesses;
     private int numberOfGuesses;
@@ -66,9 +65,9 @@ public class Game {
 
     public void gameOver() {
         io.outputLine("THE END");
-        io.outputLine(String.format("%s: %d", "Number of guesses done", numberOfGuesses));
-        io.outputLine(String.format("%s: %d", "Number of missed guesses: ", missedGuesses));
-        io.outputLine(String.format("%s: %d", "Number of successful guesses: ", successGuesses));
+        io.outputLine(String.format(PARAMS, "Number of guesses done", numberOfGuesses));
+        io.outputLine(String.format(PARAMS, "Number of missed guesses: ", missedGuesses));
+        io.outputLine(String.format(PARAMS, "Number of successful guesses: ", successGuesses));
         io.outputLine(String.format("%s: %d %p", "Success ratio: ", getSuccessRate(), "%"));
     }
 

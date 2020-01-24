@@ -2,7 +2,7 @@ package game;
 
 import java.util.Scanner;
 
-public class I0Device {
+public class I0Device implements AutoCloseable{
 
     private final Scanner input;
 
